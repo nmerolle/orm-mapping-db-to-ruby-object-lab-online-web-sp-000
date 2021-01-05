@@ -74,16 +74,10 @@ class Student
   end
   
     def self.students_below_12th_grade
-    sql = <<-SQL
-      SELECT *
-      FROM students
-      WHERE grade < 12
-      LIMIT ?
+     sql = <<-SQL
+       SELECT COUNT(grade > 10) FROM students
     SQL
- 
-    DB[:conn].execute(sql, grade).map do |row|
-      self.new_from_db(row)
-    end
+    DB[:conn].execute(sql)
   end
   
   
